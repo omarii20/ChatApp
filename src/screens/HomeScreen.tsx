@@ -17,11 +17,11 @@ interface UserType {
 }
 
 const users: UserType[] = [
-  { id: '1', name: 'John Doe', phone: '1234567890', imageUrl: '' },
-  { id: '2', name: 'Jane Smith', phone: '4565486611', imageUrl: '' },
-  { id: '3', name: 'Mohamed Omari', phone: '0987654321', imageUrl: '' },
+  { id: '1', name: 'John Doe', phone: '1234567890', imageUrl: 'user1' },
+  { id: '2', name: 'Jane Smith', phone: '4565486611', imageUrl: 'user2' },
+  { id: '3', name: 'Mohamed Omari', phone: '0987654321', imageUrl: 'user1' },
   { id: '4', name: 'Dima Omari', phone: '7787878787', imageUrl: '' },
-  { id: '5', name: 'George', phone: '565656565', imageUrl: '' },
+  { id: '5', name: 'George', phone: '565656565', imageUrl: 'user2' },
 ];
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
