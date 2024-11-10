@@ -1,0 +1,13 @@
+# TypeScript
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# React Native
+ios/Pods/
+ios/build/
+android/build/
+android/.gradle/
+
+# macOS
+.DS_Store
