@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "esnext",                           // Supports latest JavaScript features
+    "module": "esnext",                           // Uses ES modules
+    "moduleResolution": "node",                   // Resolves modules like Node.js
+    "jsx": "react-native",                       // Tells TypeScript to use React Native JSX syntax
+    "strict": true,                               // Enables strict type checking
+    "esModuleInterop": true,                      // Ensures proper module import compatibility
+    "skipLibCheck": true,                         // Skips library type checking for faster builds
+    "forceConsistentCasingInFileNames": true      // Ensures consistent casing in file names
+  },
+  "include": [
+    "src/**/*"                                    // Includes all files inside the src folder
+  ],
+  "exclude": [
+    "node_modules"                                // Excludes node_modules from TypeScript compilation
+  ]
+}
