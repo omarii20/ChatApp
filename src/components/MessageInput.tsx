@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, Button, StyleSheet, NativeSyntheticEvent, TextInputContentSizeChangeEventData } from 'react-native';
+import { useTheme } from '../context/ThemeContext'; 
 
 interface MessageInputProps {
   onSend: (message: string) => void;
 }
 
 const MessageInput: React.FC<MessageInputProps> = ({ onSend }) => {
+
+  const { isDarkMode, toggleTheme } = useTheme();  // Use the theme context
+
+  useEffect(() => {
+    // No need to call toggleTheme here, just consume it.
+  }, [isDarkMode]);
+
   const [message, setMessage] = useState('');
-  const [inputHeight, setInputHeight] = useState(40); // Initial height for the TextInput
+  const [inputHeight, setInputHeight] = useState(40); 
 
   const handleSend = () => {
     if (message.trim()) {
@@ -24,11 +32,11 @@ const MessageInput: React.FC<MessageInputProps> = ({ onSend }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isDarkMode && styles.darkContainer]}>
         <TextInput
-          style={[styles.input, { height: inputHeight }]}
+          style={[styles.input, isDarkMode && styles.darlInput]}
           placeholder="Type a message..."
-          placeholderTextColor="#eeeeee"
+          placeholderTextColor="#4ecca3"
           value={message}
           onChangeText={setMessage}
           multiline={true}
@@ -46,20 +54,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end', 
     padding: 8,
-    borderTopWidth: 1,
+    borderTopWidth: 2,
+    borderColor: '#4ecca3',
+    backgroundColor: '#eeeeee',
+  },
+  darkContainer:{
     borderColor: '#4ecca3',
     backgroundColor: '#393e46',
   },
   input: {
     flex: 1,
     padding: 12,
-    borderWidth: 1,
-    borderColor: '#4ecca3',
     borderRadius: 5,
-    backgroundColor: '#232931',
-    color: '#eeeeee',
+    backgroundColor: '#eeeeee',
+    color: '#4ecca3',
+    borderColor:'#4ecca3',
+    borderWidth:1,
     marginRight: 10,
     maxHeight: 120, 
+  },
+  darlInput:{
+    borderColor: '#4ecca3',
+    backgroundColor: '#232931',
+    color: '#eeeeee',
   },
   btnContainer: {
     justifyContent: 'center',

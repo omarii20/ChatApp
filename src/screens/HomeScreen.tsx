@@ -1,14 +1,16 @@
-import React from 'react';
-import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, FlatList, TouchableOpacity, Button } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../App';
 import User from '../components/User';
+import { useTheme } from '../context/ThemeContext'; 
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 interface HomeScreenProps {
   navigation: HomeScreenNavigationProp;
 }
+
 interface UserType {
   id: string;
   name: string;
@@ -25,6 +27,13 @@ const users: UserType[] = [
 ];
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
+
+  const { isDarkMode, toggleTheme } = useTheme();  // Use the theme context
+
+  useEffect(() => {
+    // No need to call toggleTheme here, just consume it.
+  }, [isDarkMode]);
+
   const handleUserPress = (user: UserType) => {
     navigation.navigate('Chat', { 
       user: { 
@@ -36,14 +45,26 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     });
   };
 
+  const handleSettingsPress = () => {
+    navigation.navigate('Settings'); // Navigate to Setting page
+  };
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isDarkMode && styles.darkContainer]}>
+      {/* Button to navigate to Settings */}
+      <View style={[styles.buttonContainer, isDarkMode && styles.darkButtonContainer]}>
+        <Button 
+          title="Settings"
+          onPress={handleSettingsPress}
+          color="#4ecca3" // Custom color for the button
+        />
+      </View>
       <FlatList
         data={users}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={styles.userItem}
+            style={[styles.userItem, isDarkMode && styles.darkItem]}
             onPress={() => handleUserPress(item)}
           >
             {/* Use the User component here */}
@@ -51,7 +72,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               id={item.id} 
               name={item.name} 
               phone={item.phone} 
-              imageUrl={item.imageUrl} // Pass imageUrl here
+              imageUrl={item.imageUrl} 
             />
           </TouchableOpacity>
         )}
@@ -66,23 +87,49 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    backgroundColor: '#232931',
+    backgroundColor: '#eeeeee',
     padding: 5,
+  },
+  darkContainer:{
+    backgroundColor: '#232931'
   },
   flatListContainer: {
     paddingBottom: 20,
   },
   userItem: {
-    padding: 15,
+    padding: 25,
     height: 60,
     marginVertical: 3,
-    backgroundColor: '#393e46',
+    backgroundColor: 'white',
     width: '100%',
     borderRadius: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    shadowColor: '#393e46',
+    // iOS-specific shadow properties
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    // Android-specific shadow property
+    elevation: 4,
   },
+  darkItem:{
+    shadowColor: '#4ecca3',
+    backgroundColor: '#393e46',
+  },
+  buttonContainer: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginVertical: 6,
+    padding:5,
+    width: '100%',
+    alignSelf: 'center',
+    backgroundColor: '#eeeeee'
+  },
+  darkButtonContainer:{
+    backgroundColor: '#232931'
+  }
 });
 
 export default HomeScreen;
