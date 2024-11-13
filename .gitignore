@@ -6,8 +6,48 @@ yarn-error.log
 # React Native
 ios/Pods/
 ios/build/
+android/app/
 android/build/
 android/.gradle/
+android/app/build/
+android/app/build/*
 
 # macOS
 .DS_Store
+
+# Gradle and other build outputs
+.gradle/
+build/
+*.apk
+*.aab
+
+# Ignore large files and directories
+*.log
+*.tmp
+*.bak
+
+# Other binary files that can be large
+*.zip
+*.tar.gz
+*.tar.bz2
+*.7z
+*.rar
+*.iso
+
+# Exclude generated files or dependencies
+*.dmg
+*.exe
+*.dll
+*.obj
+*.lib
+
+# Ignore files related to some CI/CD systems
+.coverage/
+coverage/
+
+# Ignore hidden files that may be created by editors
+.vscode/
+.idea/
+
+# Large directories/files for React Native
+android/app/src/main/assets/*
